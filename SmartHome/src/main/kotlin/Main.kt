@@ -1,3 +1,26 @@
+import org.w3c.dom.ranges.Range
+import kotlin.properties.ReadWriteProperty
+import kotlin.reflect.KProperty
+
+class RangeRegulator(
+    initialValue: Int,
+    private val minValue: Int,
+    private val maxValue: Int
+) : ReadWriteProperty<Any?, Int> {
+    var fieldData = initialValue
+
+    override fun getValue(thisRef: Any?, property: KProperty<*>): Int {
+        return fieldData
+    }
+
+    override fun setValue(thisRef: Any?, property: KProperty<*>, value: Int) {
+        if (value in minValue..maxValue) {
+            fieldData = value
+        }
+    }
+
+}
+
 open class SmartDevice constructor(val name: String, val category: String) {
     var deviceStatus = "online"
         protected set
@@ -24,18 +47,9 @@ open class SmartDevice constructor(val name: String, val category: String) {
 class SmartTvDevice(deviceName: String, deviceCategory: String) : SmartDevice(name = deviceName, category = deviceCategory) {
     override val deviceType = "Smart TV"
 
-    private var speakerVolume = 2
-        set(value) {
-            if (value in 0..100) {
-                field = value
-            }
-        }
-    private var channelNumber = 1
-        set(value) {
-            if (value in 0..200) {
-                field = value
-            }
-        }
+    var speakerVolume by RangeRegulator(initialValue = 0, minValue = 0, maxValue = 100)
+    var channelNumber by RangeRegulator(initialValue = 1, minValue = 0, maxValue = 200)
+
     fun increaseSpeakerVolume() {
         speakerVolume++
         println("Speaker volume increased to $speakerVolume.")
@@ -62,12 +76,8 @@ class SmartTvDevice(deviceName: String, deviceCategory: String) : SmartDevice(na
 class SmartLightDevice(deviceName: String, deviceCategory: String) : SmartDevice(name = deviceName, category = deviceCategory) {
     override val deviceType = "Smart Light"
 
-    private var brightnessLevel = 0
-        set(value) {
-            if (value in 0..100) {
-                field = value
-            }
-        }
+    private var brightnessLevel by RangeRegulator(initialValue = 2, minValue = 0, maxValue = 100)
+
     fun increaseBrightness() {
         brightnessLevel++
         println("Brightness increased to $brightnessLevel.")
