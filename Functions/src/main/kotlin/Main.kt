@@ -1,14 +1,17 @@
 fun main(args: Array<String>) {
-    val trickFunction = trick
-    trick()
-    trickFunction()
+    val treatFunction = trickOrTreat(/* isTrick= */ false)
+    val trickFunction = trickOrTreat(/* isTrick= */ true)
 
-    val treatFunction: () -> Unit = {
-        println("Have a treat!")
-    }
-
-    treat()
     treatFunction()
+    trickFunction()
+}
+
+fun trickOrTreat(isTrick: Boolean): () -> Unit {
+    if (isTrick) {
+        return trick;
+    } else {
+        return treat;
+    }
 }
 
 var trick = {
