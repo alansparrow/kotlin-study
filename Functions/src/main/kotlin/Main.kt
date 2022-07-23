@@ -1,14 +1,15 @@
 fun main(args: Array<String>) {
-    val coins: (Int) -> String = {
-        "$it quarters"
-    }
-
     val cupcake: (Int) -> String = {
         "Have a cupcake!"
     }
 
-    val treatFunction = trickOrTreat(/* isTrick= */ false, coins)
-    val trickFunction = trickOrTreat(/* isTrick= */ true, null)
+    val treatFunction = trickOrTreat(/* isTrick= */ false) { "$it quarters" }
+    val trickFunction = trickOrTreat(/* isTrick= */ true, /* extraTreat= */ null)
+
+    repeat(5) {
+        println("Count: $it")
+        treatFunction()
+    }
 
     treatFunction()
     trickFunction()
