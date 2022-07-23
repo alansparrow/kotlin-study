@@ -137,19 +137,27 @@ class SmartHome(
     }
 
     fun turnOffAllDevices() {
-        smartLightDevice.turnOff()
-        smartTvDevice.turnOff()
+        turnOffLight()
+        turnOffTv()
     }
 }
 
 fun main(args: Array<String>) {
-    var smartTvDevice : SmartDevice = SmartTvDevice("Android TV","Entertainment")
-    println("Device name is: ${smartTvDevice.name}")
-    println("Device category is: ${smartTvDevice.category}")
-    smartTvDevice.turnOn()
-    smartTvDevice.turnOff()
+    val smartHome = SmartHome(
+        SmartTvDevice(deviceName = "Android TV", deviceCategory = "Entertainment"),
+        SmartLightDevice(deviceName = "Google light", deviceCategory = "Utility")
+    )
 
-    smartTvDevice = SmartLightDevice("Google Light", "Utility")
-    smartTvDevice.turnOn()
-    smartTvDevice.turnOff()
+    smartHome.turnOnTv()
+    smartHome.turnOnLight()
+    println("Total number of devices currently turned on: ${smartHome.deviceTurnOnCount}")
+    println()
+
+    smartHome.increaseTvVolume()
+    smartHome.changeTvChannelToNext()
+    smartHome.increaseLightBrightness()
+    println()
+
+    smartHome.turnOffAllDevices()
+    println("Total number of devices currently turned on: ${smartHome.deviceTurnOnCount}.")
 }
