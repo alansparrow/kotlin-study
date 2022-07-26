@@ -1,3 +1,8 @@
+object StudentProgress {
+    var total: Int = 10
+    var answered: Int = 3
+}
+
 enum class Difficulty {
     EASY, MEDIUM, HARD
 }
@@ -16,4 +21,5 @@ fun main(args: Array<String>) {
     println(question1)
     println(question2)
     println(question3)
+    println("${StudentProgress.answered} of ${StudentProgress.total} answered.")
 }
