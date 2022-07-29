@@ -13,6 +13,27 @@ class Quiz {
     val question2 = Question<Boolean>("The sky is green. True or false", false, Difficulty.EASY)
     val question3 = Question<Int>("How many days are there between full moons?", 28, Difficulty.HARD)
 
+    fun printQuiz() {
+        question1.let {
+            println(it.questionText)
+            println(it.answer)
+            println(it.difficulty)
+        }
+        println()
+        question2.let {
+            println(it.questionText)
+            println(it.answer)
+            println(it.difficulty)
+        }
+        println()
+        question3.let {
+            println(it.questionText)
+            println(it.answer)
+            println(it.difficulty)
+        }
+        println()
+    }
+
     companion object StudentProgress {
         var total: Int = 10
         var answered: Int = 3
@@ -30,9 +51,8 @@ fun Quiz.StudentProgress.printProgressBar() {
 }
 
 fun main(args: Array<String>) {
-    val quiz = Quiz()
-    println(quiz.question1)
-    println(quiz.question2)
-    println(quiz.question3)
+    Quiz().apply {
+        printQuiz()
+    }
     Quiz.printProgressBar()
 }
